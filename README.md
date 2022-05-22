@@ -17,8 +17,11 @@ pip install -r requirements.txt
 #init database
 python manage.py migrate
 
-# get data 
+# get data, by default will get 300 movies
 python manage.py scraper_data
+
+# optionally you can change your limit with additional movie limit (for example only 30 movies)
+python manage.py scraper_data 30
 
 # run server
 python manage.py runserver
