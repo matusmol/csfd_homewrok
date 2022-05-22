@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search in database</title>
+</head>
+<body>
+<style>
+    #block_container {
+    display: flex;
+    justify-content: center;
+}
+
+</style>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="search_key" placeholder="input..." value="{{ search_key|default_if_none:''}}"><br><br>
+    <input type="submit" value="Submit">
+</form>
+<div id="block_container">
+
+    {% if movies or actors %}
+    Filmy {{movies.count }} :
+    <ul>
+        {% for movie in movies %}
+        <li><a href="{%url 'movie_info' movie.id %}">{{ movie.name }}</a></li>
+
+        {% empty %}
+        <li>Sorry, no movie found.</li>
+        {% endfor %}
+    </ul>
+    Herci {{actors.count }} :
+    <ul>
+
+        {% for actor in actors %}
+            <li><a href="{%url 'actor_info' actor.id %}">{{ actor.full_name }}</a></li>
+        {% empty %}
+            <li>Sorry, no actor found.</li>
+        {% endfor %}
+
+    </ul>
+    {% endif %}
+</div>
+
+
+</body>
+</html>
